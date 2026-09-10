@@ -98,6 +98,75 @@ Each pattern below was chosen to solve a specific structural problem in the app 
 
 ---
 
+## 8. Setup and Running the Application
+
+### Prerequisites
+- Java 17 or higher
+- Maven 3.8+
+- macOS (default), Linux, or Windows (override with `-Djavafx.platform`)
+
+### Build
+```bash
+mvn clean compile
+```
+
+### Run
+```bash
+mvn clean compile exec:java
+```
+
+Or to build an executable JAR:
+```bash
+mvn clean package
+java -jar target/givematch.jar
+```
+
+### First Launch
+- The database (`givematch.db`) is created automatically on first run in the project directory
+- Default admin account:
+  - **Username:** `admin`
+  - **Password:** `admin123`
+- Sample categories and donations are seeded automatically
+
+---
+
+## 9. Database
+
+The application uses SQLite with automatic schema initialization. The database file (`givematch.db`) is created in the working directory on first launch.
+
+**Schema includes:**
+- `users` — All registered users (Donor, Receiver, Admin)
+- `categories` — Item categories (auto-seeded with 8 defaults)
+- `donations` — Items posted by donors
+- `need_requests` — Standing needs registered by receivers
+- `requests` — Specific requests for donations
+- `distributions` — Record of completed handoffs
+
+All relationships are enforced with foreign keys and constraints.
+
+---
+
+## 10. User Workflows
+
+### Administrator
+1. Log in with `admin` / `admin123`
+2. Manage categories, view analytics, and set allocation strategies
+3. Lookup users and adjust priority levels
+
+### Donor
+1. Register or log in
+2. Post donations with category, quantity, and description
+3. Review incoming requests
+4. Approve requests and complete distributions
+
+### Receiver
+1. Register or log in
+2. Browse available items by category
+3. Create requests for specific donations
+4. Register standing needs for automatic notifications
+
+---
+
 ## 8. Team
 
 | Name | Roll |

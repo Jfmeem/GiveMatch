@@ -2,11 +2,12 @@
 
 CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    full_name TEXT NOT NULL,
-    email TEXT NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL,
-    phone TEXT,
+    name TEXT NOT NULL,
+    username TEXT NOT NULL UNIQUE,
+    hashed_password TEXT NOT NULL,
     role TEXT NOT NULL CHECK (role IN ('DONOR', 'RECEIVER', 'ADMIN')),
+    contact_info TEXT,
+    priority_level INTEGER DEFAULT 0,
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 

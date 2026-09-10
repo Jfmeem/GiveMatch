@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.spl2</groupId>
+    <groupId>com.givematch</groupId>
     <artifactId>givematch</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -14,57 +14,141 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.version>21.0.2</javafx.version>
+        <sqlite.version>3.45.1.0</sqlite.version>
+        <main.class>com.spl2.givematch.Main</main.class>
+
+        <!--
+            Default so the build NEVER has an unresolved ${javafx.platform} — this is what
+            gets used if, for whatever reason, none of the profiles below activate on your
+            machine. Set to "mac" since that's this project's dev machine; override with
+            -Djavafx.platform=win or -Djavafx.platform=linux on a different OS, e.g.:
+                mvn clean compile exec:java -Djavafx.platform=win
+        -->
+        <javafx.platform>mac</javafx.platform>
     </properties>
 
+    <!--
+        Maven Central publishes javafx-controls/javafx-fxml as OS-specific artifacts
+        (a "win", "mac", or "linux" classifier). We need to pick the right one — but the
+        classic <os><family> activation is ambiguous on macOS, because "mac" satisfies
+        BOTH the "mac" family check AND the "unix" family check (macOS is Unix-based).
+        That overlap silently let a later profile clobber javafx.platform with the wrong
+        value. os-maven-plugin (registered as a build extension below) detects the OS
+        unambiguously instead, exposing it as ${os.detected.name} with exactly one value:
+        "windows", "osx", or "linux" — no overlap possible.
+    -->
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <property><name>os.detected.name</name><value>windows</value></property>
+            </activation>
+            <properties>
+                <javafx.platform>win</javafx.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>mac</id>
+            <activation>
+                <property><name>os.detected.name</name><value>osx</value></property>
+            </activation>
+            <properties>
+                <javafx.platform>mac</javafx.platform>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <property><name>os.detected.name</name><value>linux</value></property>
+            </activation>
+            <properties>
+                <javafx.platform>linux</javafx.platform>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
+        <!-- JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
+            <classifier>${javafx.platform}</classifier>
         </dependency>
 
-        <!-- Local SQL storage. SQLite = single file, zero server setup. -->
+        <!-- SQLite JDBC driver -->
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
-            <version>3.46.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
-        </dependency>
-
-        <!-- Testing -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.10.2</version>
-            <scope>test</scope>
+            <version>${sqlite.version}</version>
         </dependency>
     </dependencies>
 
     <build>
+        <finalName>givematch</finalName>
+
+        <!-- Provides the unambiguous os.detected.name property used by the profiles above. -->
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.7.1</version>
+            </extension>
+        </extensions>
+
         <plugins>
+
+            <!-- Lets `mvn javafx:run` launch the app directly -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.spl2.givematch.Main</mainClass>
+                    <mainClass>${main.class}</mainClass>
                 </configuration>
             </plugin>
+
+            <!--
+                Recommended way to launch: `mvn clean compile exec:java`. Runs the app inside
+                Maven's own JVM using the classpath Maven already resolved.
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
+            </plugin>
+
+            <!-- Lets `mvn package` produce a single runnable jar with all dependencies bundled -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${main.class}</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
     </build>
 </project>

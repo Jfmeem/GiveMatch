@@ -1,4 +1,10 @@
 package com.spl2.givematch.observer;
 
-public class DonationSubject {
+public interface DonationSubject {
+
+    void addObserver(DonationObserver observer);
+
+    void removeObserver(DonationObserver observer);
+
+    void notifyObservers(NotificationMessage message);
 }

@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="12" xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml" fx:controller="com.spl2.givematch.controller.LoginController">
-    <Label text="GiveMatch" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
-    <Label text="Login screen placeholder — build this out next." />
+<VBox alignment="CENTER" spacing="16" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml" fx:controller="com.spl2.givematch.ui.LoginController">
+    <VBox alignment="CENTER" spacing="8">
+        <Label text="GiveMatch" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+        <Label text="Smart Item Donation & Distribution System" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" />
+    </VBox>
+    
+    <Separator />
+    
+    <VBox spacing="12" style="-fx-border-color: #ecf0f1; -fx-border-radius: 4; -fx-padding: 20;">
+        <HBox spacing="10">
+            <Label text="Email:" prefWidth="80" />
+            <TextField fx:id="usernameField" promptText="Enter your email" HBox.hgrow="ALWAYS" />
+        </HBox>
+        
+        <HBox spacing="10">
+            <Label text="Password:" prefWidth="80" />
+            <PasswordField fx:id="passwordField" promptText="Enter your password" HBox.hgrow="ALWAYS" />
+        </HBox>
+        
+        <Label fx:id="errorLabel" style="-fx-text-fill: #e74c3c;" />
+        
+        <Button text="Login" onAction="#onLogin" style="-fx-font-size: 14px; -fx-padding: 10;" />
+        
+        <HBox alignment="CENTER" spacing="4">
+            <Label text="Don't have an account?" />
+            <Hyperlink text="Create one" onAction="#onGoToRegister" />
+        </HBox>
+    </VBox>
 </VBox>
