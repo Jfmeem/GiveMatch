@@ -1,6 +1,9 @@
 package com.spl2.givematch;
 
+import com.spl2.givematch.dao.DatabaseManager;
 import com.spl2.givematch.db.DBConnection;
+import com.spl2.givematch.ui.AppContext;
+import com.spl2.givematch.ui.SceneManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,15 +13,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        // Touch DBConnection once at startup so schema/seed run before any screen loads.
-        DBConnection.getInstance();
-
-        Parent root = FXMLLoader.load(
-                getClass().getResource("/com/spl2/givematch/fxml/login.fxml"));
-        primaryStage.setTitle("GiveMatch");
-        primaryStage.setScene(new Scene(root, 800, 600));
-        primaryStage.show();
+    public void start(Stage primaryStage) {
+        DatabaseManager.initialize();
+        AppContext.getInstance().setPrimaryStage(primaryStage);
+        SceneManager.switchTo("/com/spl2/givematch/fxml/login.fxml", "GiveMatch — Login");
     }
 
     public static void main(String[] args) {

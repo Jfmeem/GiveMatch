@@ -9,11 +9,11 @@ INSERT OR IGNORE INTO categories (name, description) VALUES
     ('Household Items', 'General household goods'),
     ('Other', 'Anything that does not fit another category');
 
--- Sample users (password_hash values are placeholders — replace with real jBCrypt hashes when AuthService is built)
-INSERT OR IGNORE INTO users (id, full_name, email, password_hash, phone, role) VALUES
-    (1, 'Admin User', 'admin@givematch.local', 'REPLACE_WITH_HASH', NULL, 'ADMIN'),
-    (2, 'Sample Donor', 'donor@givematch.local', 'REPLACE_WITH_HASH', '01700000000', 'DONOR'),
-    (3, 'Sample Receiver', 'receiver@givematch.local', 'REPLACE_WITH_HASH', '01800000000', 'RECEIVER');
+-- Sample users (password_hash values are placeholders — replace with real hashes when AuthService is built)
+INSERT OR IGNORE INTO users (id, name, username, hashed_password, role, contact_info, priority_level) VALUES
+    (1, 'Admin User', 'admin', 'REPLACE_WITH_HASH', 'ADMIN', 'admin@givematch.local', 0),
+    (2, 'Sample Donor', 'donor', 'REPLACE_WITH_HASH', 'DONOR', '01700000000', 0),
+    (3, 'Sample Receiver', 'receiver', 'REPLACE_WITH_HASH', 'RECEIVER', '01800000000', 0);
 
 -- Sample donation
 INSERT OR IGNORE INTO donations (id, donor_id, category_id, item_name, description, quantity, quantity_remaining, status) VALUES

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane style="-fx-padding: 10;" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="com.spl2.givematch.ui.AdminDashboardController">
+    
+    <!-- Top Bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 10; -fx-border-color: #ecf0f1; -fx-border-width: 0 0 1 0;">
+            <Label text="GiveMatch Admin Dashboard" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="Logout" onAction="#onLogout" />
+        </HBox>
+    </top>
+    
+    <!-- Main Content -->
+    <center>
+        <TabPane style="-fx-padding: 15;">
+            
+            <!-- Tab 1: Categories -->
+            <Tab text="Categories" closable="false">
+                <VBox spacing="12" style="-fx-padding: 15;">
+                    <HBox spacing="10">
+                        <Label text="Name:" prefWidth="80" />
+                        <TextField fx:id="categoryNameField" promptText="Category name" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                    <HBox spacing="10">
+                        <Label text="Description:" prefWidth="80" />
+                        <TextField fx:id="categoryDescriptionField" promptText="Description" HBox.hgrow="ALWAYS" />
+                    </HBox>
+                    <Label fx:id="categoryErrorLabel" style="-fx-text-fill: #e74c3c; -fx-wrap-text: true;" />
+                    <Button text="Add Category" onAction="#onAddCategory" />
+                    
+                    <TableView fx:id="categoriesTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn text="Name" fx:id="colCategoryName" prefWidth="200" />
+                            <TableColumn text="Description" fx:id="colCategoryDescription" prefWidth="300" />
+                        </columns>
+                    </TableView>
+                </VBox>
+            </Tab>
+            
+            <!-- Tab 2: Allocation Strategy -->
+            <Tab text="Allocation Strategy" closable="false">
+                <VBox spacing="12" style="-fx-padding: 15;">
+                    <HBox spacing="10">
+                        <Label text="Strategy:" prefWidth="100" />
+                        <ComboBox fx:id="strategyComboBox" HBox.hgrow="ALWAYS" />
+                        <Button text="Apply" onAction="#onApplyStrategy" />
+                    </HBox>
+                    <HBox spacing="10">
+                        <Label text="Current:" prefWidth="100" />
+                        <Label fx:id="currentStrategyLabel" style="-fx-font-weight: bold;" />
+                    </HBox>
+                </VBox>
+            </Tab>
+            
+            <!-- Tab 3: User Management -->
+            <Tab text="User Management" closable="false">
+                <VBox spacing="12" style="-fx-padding: 15;">
+                    <HBox spacing="10">
+                        <Label text="Username:" prefWidth="100" />
+                        <TextField fx:id="usernameLookupField" HBox.hgrow="ALWAYS" />
+                        <Button text="Find User" onAction="#onFindUser" />
+                    </HBox>
+                    <HBox spacing="10">
+                        <Label fx:id="foundUserLabel" style="-fx-font-weight: bold;" />
+                    </HBox>
+                    <HBox spacing="10">
+                        <Label text="Priority Level:" prefWidth="100" />
+                        <TextField fx:id="priorityLevelField" promptText="0-10" prefWidth="100" />
+                        <Button text="Set Priority" onAction="#onSetPriority" />
+                    </HBox>
+                    <Label fx:id="priorityErrorLabel" style="-fx-text-fill: #e74c3c; -fx-wrap-text: true;" />
+                </VBox>
+            </Tab>
+            
+            <!-- Tab 4: Analytics -->
+            <Tab text="Analytics" closable="false">
+                <ScrollPane fitToWidth="true">
+                    <VBox spacing="15" style="-fx-padding: 15;">
+                        
+                        <Label text="Unmet Needs" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                        <Button text="Refresh" onAction="#onRefreshUnmetNeeds" />
+                        <TableView fx:id="unmetNeedsTable" prefHeight="200">
+                            <columns>
+                                <TableColumn text="Category" fx:id="colUnmetCategory" prefWidth="150" />
+                                <TableColumn text="Requests Count" fx:id="colUnmetCount" prefWidth="100" />
+                                <TableColumn text="Total Quantity" fx:id="colUnmetQuantity" prefWidth="100" />
+                            </columns>
+                        </TableView>
+                        
+                        <Separator />
+                        
+                        <Label text="Fulfillment by Donor" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                        <Button text="Refresh" onAction="#onRefreshFulfillmentByDonor" />
+                        <TableView fx:id="fulfillmentByDonorTable" prefHeight="150">
+                            <columns>
+                                <TableColumn text="Donor" fx:id="colDonorLabel" prefWidth="150" />
+                                <TableColumn text="Requested" fx:id="colDonorRequested" prefWidth="100" />
+                                <TableColumn text="Distributed" fx:id="colDonorDistributed" prefWidth="100" />
+                                <TableColumn text="Rate" fx:id="colDonorRate" prefWidth="80" />
+                            </columns>
+                        </TableView>
+                        
+                        <Separator />
+                        
+                        <Label text="Fulfillment by Category" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                        <Button text="Refresh" onAction="#onRefreshFulfillmentByCategory" />
+                        <TableView fx:id="fulfillmentByCategoryTable" prefHeight="150">
+                            <columns>
+                                <TableColumn text="Category" fx:id="colCatLabel" prefWidth="150" />
+                                <TableColumn text="Requested" fx:id="colCatRequested" prefWidth="100" />
+                                <TableColumn text="Distributed" fx:id="colCatDistributed" prefWidth="100" />
+                                <TableColumn text="Rate" fx:id="colCatRate" prefWidth="80" />
+                            </columns>
+                        </TableView>
+                        
+                        <Separator />
+                        
+                        <Label text="Fulfillment by Month" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                        <Button text="Refresh" onAction="#onRefreshFulfillmentByMonth" />
+                        <TableView fx:id="fulfillmentByMonthTable" prefHeight="150">
+                            <columns>
+                                <TableColumn text="Month" prefWidth="150" />
+                                <TableColumn text="Requested" prefWidth="100" />
+                                <TableColumn text="Distributed" prefWidth="100" />
+                                <TableColumn text="Rate" prefWidth="80" />
+                            </columns>
+                        </TableView>
+                        
+                    </VBox>
+                </ScrollPane>
+            </Tab>
+            
+        </TabPane>
+    </center>
+</BorderPane>

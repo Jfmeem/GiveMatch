@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane style="-fx-padding: 10;" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="com.spl2.givematch.ui.DonorDashboardController">
+    
+    <!-- Top Bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 10; -fx-border-color: #ecf0f1; -fx-border-width: 0 0 1 0;">
+            <Label fx:id="welcomeLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button text="🔄 Refresh" onAction="#onRefresh" />
+            <Button text="Logout" onAction="#onLogout" />
+        </HBox>
+    </top>
+    
+    <!-- Main Content -->
+    <center>
+        <SplitPane dividerPositions="0.4" style="-fx-padding: 15;">
+            
+            <!-- Left Panel: Post Donation -->
+            <VBox spacing="12" style="-fx-border-color: #ecf0f1; -fx-padding: 15; -fx-border-radius: 4;">
+                <Label text="Post a Donation" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                
+                <HBox spacing="10">
+                    <Label text="Category:" prefWidth="80" />
+                    <ComboBox fx:id="categoryComboBox" HBox.hgrow="ALWAYS" />
+                </HBox>
+                
+                <HBox spacing="10">
+                    <Label text="Quantity:" prefWidth="80" />
+                    <TextField fx:id="quantityField" promptText="Enter quantity" HBox.hgrow="ALWAYS" />
+                </HBox>
+                
+                <HBox spacing="10">
+                    <Label text="Description:" prefWidth="80" />
+                    <TextField fx:id="descriptionField" promptText="Item details" HBox.hgrow="ALWAYS" />
+                </HBox>
+                
+                <Label fx:id="postErrorLabel" style="-fx-text-fill: #e74c3c; -fx-wrap-text: true;" />
+                
+                <Button text="Post Donation" onAction="#onPostDonation" style="-fx-padding: 10;" />
+                
+                <Separator />
+                
+                <Label text="My Donations" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                <TableView fx:id="donationsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn text="Description" fx:id="colDonationDescription" prefWidth="120" />
+                        <TableColumn text="Quantity" fx:id="colDonationQuantity" prefWidth="80" />
+                        <TableColumn text="Status" fx:id="colDonationStatus" prefWidth="100" />
+                    </columns>
+                </TableView>
+                
+                <HBox spacing="10">
+                    <Button text="Close Donation" onAction="#onCloseDonation" />
+                    <Button text="Process Requests" onAction="#onProcessRequests" />
+                </HBox>
+            </VBox>
+            
+            <!-- Right Panel: Requests for Selected Donation -->
+            <VBox spacing="12" style="-fx-border-color: #ecf0f1; -fx-padding: 15; -fx-border-radius: 4;">
+                <Label text="Requests for Selected Donation" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                
+                <TableView fx:id="requestsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn text="Receiver" fx:id="colRequestReceiver" prefWidth="120" />
+                        <TableColumn text="Requested" fx:id="colRequestQuantity" prefWidth="80" />
+                        <TableColumn text="Allocated" fx:id="colRequestAllocated" prefWidth="80" />
+                        <TableColumn text="Status" fx:id="colRequestStatus" prefWidth="100" />
+                    </columns>
+                </TableView>
+                
+                <Button text="Complete Request" onAction="#onCompleteRequest" />
+            </VBox>
+            
+        </SplitPane>
+    </center>
+</BorderPane>
