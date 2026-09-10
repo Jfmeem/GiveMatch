@@ -15,7 +15,7 @@ public final class RequestStateFactory {
     public static RequestState of(RequestStatus status) {
         return switch (status) {
             case PENDING -> PENDING;
-            case ACCEPTED -> ACCEPTED;
+            case APPROVED -> ACCEPTED;
             case REJECTED -> REJECTED;
             case COMPLETED -> COMPLETED;
         };

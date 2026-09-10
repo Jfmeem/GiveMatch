@@ -7,7 +7,7 @@ public class AcceptedState implements RequestState {
 
     @Override
     public RequestStatus getStatus() {
-        return RequestStatus.ACCEPTED;
+        return RequestStatus.APPROVED;
     }
 
     @Override

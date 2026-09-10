@@ -16,7 +16,7 @@ public class PendingState implements RequestState {
             throw new IllegalArgumentException("Allocated quantity must be positive.");
         }
         request.setQuantityAllocated(allocatedQuantity);
-        request.setStatus(RequestStatus.ACCEPTED);
+        request.setStatus(RequestStatus.APPROVED);
     }
 
     @Override

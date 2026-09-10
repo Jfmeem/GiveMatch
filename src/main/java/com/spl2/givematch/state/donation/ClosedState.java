@@ -7,7 +7,7 @@ public class ClosedState implements DonationState {
 
     @Override
     public DonationStatus getStatus() {
-        return DonationStatus.CLOSED;
+        return DonationStatus.COMPLETED;
     }
 
     @Override

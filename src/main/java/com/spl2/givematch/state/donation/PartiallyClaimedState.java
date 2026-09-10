@@ -7,7 +7,7 @@ public class PartiallyClaimedState implements DonationState {
 
     @Override
     public DonationStatus getStatus() {
-        return DonationStatus.PARTIALLY_CLAIMED;
+        return DonationStatus.PARTIALLY_ALLOCATED;
     }
 
     @Override
@@ -20,13 +20,13 @@ public class PartiallyClaimedState implements DonationState {
         }
         donation.setQuantityRemaining(donation.getQuantityRemaining() - quantity);
         donation.setStatus(donation.getQuantityRemaining() == 0
-                ? DonationStatus.FULLY_CLAIMED
-                : DonationStatus.PARTIALLY_CLAIMED);
+                ? DonationStatus.FULLY_ALLOCATED
+                : DonationStatus.PARTIALLY_ALLOCATED);
     }
 
     @Override
     public void close(Donation donation) {
-        donation.setStatus(DonationStatus.CLOSED);
+        donation.setStatus(DonationStatus.COMPLETED);
     }
 
     @Override
