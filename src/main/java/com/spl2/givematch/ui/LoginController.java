@@ -32,16 +32,16 @@ public class LoginController {
         AppContext.getInstance().setCurrentUser(user.get());
         Role role = user.get().getRole();
         if (role == Role.DONOR) {
-            SceneManager.switchTo("/fxml/donor_dashboard.fxml", "GiveMatch — Donor Dashboard");
+            SceneManager.switchTo("/com/spl2/givematch/fxml/donor_dashboard.fxml", "GiveMatch — Donor Dashboard");
         } else if (role == Role.RECEIVER) {
-            SceneManager.switchTo("/fxml/receiver_dashboard.fxml", "GiveMatch — Receiver Dashboard");
+            SceneManager.switchTo("/com/spl2/givematch/fxml/receiver_dashboard.fxml", "GiveMatch — Receiver Dashboard");
         } else {
-            SceneManager.switchTo("/fxml/admin_dashboard.fxml", "GiveMatch — Admin Dashboard");
+            SceneManager.switchTo("/com/spl2/givematch/fxml/admin_dashboard.fxml", "GiveMatch — Admin Dashboard");
         }
     }
 
     @FXML
     private void onGoToRegister() {
-        SceneManager.switchTo("/fxml/register.fxml", "GiveMatch — Create Account");
+        SceneManager.switchTo("/com/spl2/givematch/fxml/register.fxml", "GiveMatch — Create Account");
     }
 }

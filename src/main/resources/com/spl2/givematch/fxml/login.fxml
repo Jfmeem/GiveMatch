@@ -8,15 +8,15 @@
       xmlns:fx="http://javafx.com/fxml" fx:controller="com.spl2.givematch.ui.LoginController">
     <VBox alignment="CENTER" spacing="8">
         <Label text="GiveMatch" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
-        <Label text="Smart Item Donation & Distribution System" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" />
+        <Label text="Smart Item Donation &amp; Distribution System" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;" />
     </VBox>
     
     <Separator />
     
     <VBox spacing="12" style="-fx-border-color: #ecf0f1; -fx-border-radius: 4; -fx-padding: 20;">
         <HBox spacing="10">
-            <Label text="Email:" prefWidth="80" />
-            <TextField fx:id="usernameField" promptText="Enter your email" HBox.hgrow="ALWAYS" />
+            <Label text="Username:" prefWidth="80" />
+            <TextField fx:id="usernameField" promptText="Enter your username" HBox.hgrow="ALWAYS" />
         </HBox>
         
         <HBox spacing="10">

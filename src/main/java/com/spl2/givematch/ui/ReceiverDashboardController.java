@@ -167,7 +167,7 @@ public class ReceiverDashboardController {
     @FXML
     private void onLogout() {
         AppContext.getInstance().setCurrentUser(null);
-        SceneManager.switchTo("/fxml/login.fxml", "GiveMatch — Login");
+        SceneManager.switchTo("/com/spl2/givematch/fxml/login.fxml", "GiveMatch — Login");
     }
 
     private String categoryName(int categoryId) {

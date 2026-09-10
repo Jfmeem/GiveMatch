@@ -43,7 +43,7 @@ public class RegisterController {
             }
 
             AppContext.getInstance().getAuthService().register(name, username, password, role, contact);
-            SceneManager.switchTo("/fxml/login.fxml", "GiveMatch — Login");
+            SceneManager.switchTo("/com/spl2/givematch/fxml/login.fxml", "GiveMatch — Login");
         } catch (IllegalArgumentException e) {
             errorLabel.setText(e.getMessage());
         }
@@ -51,6 +51,6 @@ public class RegisterController {
 
     @FXML
     private void onBackToLogin() {
-        SceneManager.switchTo("/fxml/login.fxml", "GiveMatch — Login");
+        SceneManager.switchTo("/com/spl2/givematch/fxml/login.fxml", "GiveMatch — Login");
     }
 }

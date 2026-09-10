@@ -21,13 +21,13 @@ CREATE TABLE IF NOT EXISTS donations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     donor_id INTEGER NOT NULL,
     category_id INTEGER NOT NULL,
-    item_name TEXT NOT NULL,
+    item_name TEXT,
     description TEXT,
     quantity INTEGER NOT NULL CHECK (quantity > 0),
     quantity_remaining INTEGER NOT NULL CHECK (quantity_remaining >= 0),
     status TEXT NOT NULL DEFAULT 'AVAILABLE'
         CHECK (status IN ('AVAILABLE', 'PARTIALLY_ALLOCATED', 'FULLY_ALLOCATED', 'COMPLETED')),
-    posted_at TEXT NOT NULL DEFAULT (datetime('now')),
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
     FOREIGN KEY (donor_id) REFERENCES users(id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );

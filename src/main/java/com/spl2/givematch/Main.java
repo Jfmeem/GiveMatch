@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         DatabaseManager.initialize();
         AppContext.getInstance().setPrimaryStage(primaryStage);
-        SceneManager.switchTo("/fxml/login.fxml", "GiveMatch — Login");
+        SceneManager.switchTo("/com/spl2/givematch/fxml/login.fxml", "GiveMatch — Login");
     }
 
     public static void main(String[] args) {
