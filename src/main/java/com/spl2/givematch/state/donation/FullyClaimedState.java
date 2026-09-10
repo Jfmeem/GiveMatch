@@ -7,7 +7,7 @@ public class FullyClaimedState implements DonationState {
 
     @Override
     public DonationStatus getStatus() {
-        return DonationStatus.FULLY_CLAIMED;
+        return DonationStatus.FULLY_ALLOCATED;
     }
 
     @Override
@@ -18,7 +18,7 @@ public class FullyClaimedState implements DonationState {
 
     @Override
     public void close(Donation donation) {
-        donation.setStatus(DonationStatus.CLOSED);
+        donation.setStatus(DonationStatus.COMPLETED);
     }
 
     @Override

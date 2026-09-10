@@ -36,11 +36,10 @@ CREATE TABLE IF NOT EXISTS need_requests (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     receiver_id INTEGER NOT NULL,
     category_id INTEGER NOT NULL,
-    item_name TEXT NOT NULL,
     quantity_needed INTEGER NOT NULL CHECK (quantity_needed > 0),
     status TEXT NOT NULL DEFAULT 'OPEN'
-        CHECK (status IN ('OPEN', 'MATCHED', 'CLOSED')),
-    posted_at TEXT NOT NULL DEFAULT (datetime('now')),
+        CHECK (status IN ('OPEN', 'FULFILLED')),
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
     FOREIGN KEY (receiver_id) REFERENCES users(id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
